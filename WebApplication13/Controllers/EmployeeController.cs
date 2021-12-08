@@ -18,12 +18,11 @@ namespace WebApplication13.Controllers
             _context = context;
         }
 
-
-
         [HttpGet]
         public IEnumerable<Employee> Get()
         {
             return _context.Employees.ToArray();
         }
+
     }
 }

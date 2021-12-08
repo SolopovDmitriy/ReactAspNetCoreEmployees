@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using WebApplication13.Models;
+
 
 namespace WebApplication13.Controllers
 {
@@ -11,6 +14,7 @@ namespace WebApplication13.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        //private static ClinicDBContext _dBContext = new Models.ClinicDBContext(new DbContextOptions<ClinicDBContext>());
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
