@@ -20,17 +20,20 @@ namespace WebApplication13.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public Post Get()
+        [HttpGet("{id}")]
+        public Post Get(string id)
         {
-            var post = _context.Posts.FirstOrDefault();
-            return post;
-                //_context.Posts
-                //.Where(x => x.UrlSlug.Contains(Id))
-                //.FirstOrDefault();   
+            return _context.Posts
+            .Where(x => x.UrlSlug.Equals(id))
+            .FirstOrDefault();
         }
 
 
+        //public Post Get()
+        //{
+        //    var post = _context.Posts.FirstOrDefault();
+        //    return post;          
+        //}
 
 
         //public IActionResult Index()

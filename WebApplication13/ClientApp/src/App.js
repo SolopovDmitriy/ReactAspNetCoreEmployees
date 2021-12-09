@@ -20,7 +20,7 @@ export default class App extends Component {
             <Route exact path='/' component={Home} />
             <Route path='/counter' component={Counter} /> {/* Route path='/counter' - вводим путь в браузере --> component={Counter} --> import { Counter } from './components/Counter'; */}
             <Route path='/fetch-data' component={FetchData} />
-            <Route path='/one-post' component={OnePost} />
+            <Route path='/one-post/:id' component={OnePost} />
             <Route path='/employee-data' component={EmployeeData} /> {/* employee-data   вывод всех сотрудников */}
         </Layout>
     );

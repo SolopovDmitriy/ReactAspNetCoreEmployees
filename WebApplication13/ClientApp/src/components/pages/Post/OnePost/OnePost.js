@@ -16,26 +16,24 @@ export class OnePost extends Component {
 
     static renderForecastsTable(post) {
 
-        /*const MainImage = require('../../../..' + post.imgSrc); */
-        const MainImage = require('../../../../images/posts/1.jpg');     
-        let x = '../../../..' + post.imgSrc;   
-
+       
+    /*    console.log("Пост", post);*/
       return (
 
           <div>
-              <h1> {x}</h1>
+              
                {/* <!-- Page Banner -->*/}
-              <div class="container-fluid no-padding page-banner">
+              <div className="container-fluid no-padding page-banner">
                   {/*<!-- Container -->*/}
-                  <div class="container">
+                  <div className="container">
                      {/* <!-- Banner Heading -->*/}
-                      <div class="banner-heading">
+                      <div className="banner-heading">
                           <h3>{post.title}</h3>
-                          <h5 class="onePost-Id hidden">{post.id}</h5>
-                          <ol class="breadcrumb">
+                          <h5 className="onePost-Id hidden">{post.id}</h5>
+                          <ol className="breadcrumb">
                               <li><a href="/">Главная</a></li>
                               <li><a href="/Post/index">Все Посты</a></li>
-                              <li class="active">Просмотр поста</li>
+                              <li className="active">Просмотр поста</li>
                           </ol>
                       </div> {/*<!-- Banner Heading /- -->*/}
                   </div> {/*<!-- Container /- -->*/}
@@ -45,46 +43,46 @@ export class OnePost extends Component {
 
 
                     {/*<!--Blog List-- >*/}
-                <div class="container-fluid no-padding blog-list">
-                    <div class="section-padding"></div>
+                <div className="container-fluid no-padding blog-list">
+                    <div className="section-padding"></div>
                     {/*<!-- Container -->*/}
-                    <div class="container">
-                        <div class="row">
+                    <div className="container">
+                        <div className="row">
                             {/*<!-- Blog Area -->*/}
-                            <div class="col-md-9 col-sm-9 col-xs-12 blog-area single-post">
-                                <div class="section-title">
+                            <div className="col-md-9 col-sm-9 col-xs-12 blog-area single-post">
+                                <div className="section-title">
                                   <h3>{post.title}</h3>
                                   <p>{post.slogan}</p>
                                 </div>
                               <article>
-                                  <div class="entry-cover">
-                                      <img src={MainImage} alt={post.imgAlt} />
+                                  <div className="entry-cover">
+                                      <img src={post.imgSrc} alt={post.imgAlt} />
                                   </div>
                                 
-                                  <div class="post-content">
-                                      <div class="post-meta">
-                                          <div class="post-date">
+                                  <div className="post-content">
+                                      <div className="post-meta">
+                                          <div className="post-date">
                                               <span> {post.dateOfPublished} </span>
                                               <span>{post.dateOfPublished}  </span>
                                           </div>
-                                          <div class="post-comment">
+                                          <div className="post-comment">
                                               <i><img src="~/images/icon/comment.png" alt="Comment" /></i>
                                               <a href="#">17</a>
                                           </div>
-                                          <div class="post-share pull-right">
-                                              <a href="#"><i class="fa fa-reply"></i>Reply</a>
+                                          <div className="post-share pull-right">
+                                              <a href="#"><i className="fa fa-reply"></i>Reply</a>
                                               <a href="#"><i><img src="~/images/icon/share.png" alt="Comment" /></i>Share</a>
                                           </div>
                                       </div>
-                                      <h3 class="entry-title">{post.slogan}</h3>
-                                      <div class="entry-content">
+                                      <h3 className="entry-title">{post.slogan}</h3>
+                                      <div className="entry-content">
                                           {post.content} 
                                       </div>
-                                      <div class="entry-footer">
-                                          <div class="post-admin">
+                                      <div className="entry-footer">
+                                          <div className="post-admin">
                                               <i><img src="~/images/icon/admin-ic.png" alt="admin-ic" /></i>Posted by<a href="#">Admin</a>
                                           </div>
-                                          <div class="tags">
+                                          <div className="tags">
                                               <i><img src="~/images/icon/tags.png" alt="Tags" /></i>
                                               <a href="#">Pets</a>
                                               <a href="#">Veterinary</a>
@@ -111,21 +109,43 @@ export class OnePost extends Component {
     );
   }
 
-  render() {  
-        let contents = this.state.loading
-          ? <p><em>Loading...</em></p>
-            : OnePost.renderForecastsTable(this.state.post);
+    render() {
+        let contents = <p><em> </em></p>;
+        if (this.state.loading) {
+            contents = <p><em>Loading...</em></p>;
+        }else if (this.state.post == null) {
+            contents = <p><em>no post found </em></p>; 
+        } else {
+            contents = OnePost.renderForecastsTable(this.state.post);
+        }
+
+
+        //let contents = this.state.loading
+        //  ? <p><em>Loading...</em></p>
+        //    : OnePost.renderForecastsTable(this.state.post);
         return (
-          <div>
+            <div>
+            <h2>{this.props.match.params.id}</h2>
             <h1>One post </h1>        
             {contents}
           </div>
         );
   }
 
-    async populateData() {                                   //методзапроса на сервер                                  
-        const response = await fetch('post');                   //асинхронный запрос - по маршруту: employee - тип запроса GET
-        const data = await response.json();                          //ответ конвертим в json   
-        this.setState({ post: data, loading: false });          //меняем состояние обьекта state - инитим forecasts массив данными с сервера
+    async populateData() {                                   //методзапроса на сервер 
+        const encodedValue = encodeURIComponent(this.props.match.params.id);
+       
+        const response = await fetch(`post/${encodedValue}`);// const response = await fetch('post');                   //асинхронный запрос - по маршруту: employee - тип запроса GET
+        if (response.status === 200) {
+            const data = await response.json(); //ответ конвертим в json
+            this.setState({ post: data, loading: false }); //меняем состояние обьекта state - инитим forecasts массив данными с сервера
+        } else if (response.status === 204) {
+            this.setState({ post: null, loading: false });
+        } else {
+            // Other problem!
+        }
+       
+        
+      
     }
 }

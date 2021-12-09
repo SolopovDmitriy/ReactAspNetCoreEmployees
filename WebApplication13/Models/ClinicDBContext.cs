@@ -25,9 +25,9 @@ namespace WebApplication13.Models
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=tcp:simplewebreactapplication-server.database.windows.net,1433;Initial Catalog=simplewebreactapplication;Persist Security Info=False;User ID=simplewebreactapplication-server-admin;Password=LG0H82ACK801A714$;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            //optionsBuilder.UseSqlServer(@"Server=tcp:simplewebreactapplication-server.database.windows.net,1433;Initial Catalog=simplewebreactapplication;Persist Security Info=False;User ID=simplewebreactapplication-server-admin;Password=LG0H82ACK801A714$;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=330;");
 
-            //optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=veterinary_clinic2;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=veterinary_clinic2;Trusted_Connection=True;");
 
             // optionsBuilder.UseSqlServer(@"Server=tcp:urosmagnus-server.database.windows.net,1433;Initial Catalog=urosmagnusDB;Persist Security Info=False;User ID=urosmagnus-server-admin;Password=KB8G5CWJ80MG00RR$;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
 
