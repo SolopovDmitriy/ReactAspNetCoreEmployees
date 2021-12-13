@@ -118,8 +118,6 @@ export class OnePost extends Component {
         } else {
             contents = OnePost.renderForecastsTable(this.state.post);
         }
-
-
         //let contents = this.state.loading
         //  ? <p><em>Loading...</em></p>
         //    : OnePost.renderForecastsTable(this.state.post);
@@ -131,11 +129,11 @@ export class OnePost extends Component {
           </div>
         );
   }
-
     async populateData() {                                   //методзапроса на сервер 
         const encodedValue = encodeURIComponent(this.props.match.params.id);
        
-        const response = await fetch(`post/${encodedValue}`);// const response = await fetch('post');                   //асинхронный запрос - по маршруту: employee - тип запроса GET
+        const response = await fetch(`post/${encodedValue}`);// const response = await fetch('post'); 
+        //асинхронный запрос - по маршруту: post - тип запроса GET
         if (response.status === 200) {
             const data = await response.json(); //ответ конвертим в json
             this.setState({ post: data, loading: false }); //меняем состояние обьекта state - инитим forecasts массив данными с сервера

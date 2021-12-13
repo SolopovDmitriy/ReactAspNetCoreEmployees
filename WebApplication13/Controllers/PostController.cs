@@ -21,7 +21,7 @@ namespace WebApplication13.Controllers
         }
 
         [HttpGet("{id}")]
-        public Post Get(string id)
+        public Post Get(string id)   // await fetch(`post/${encodedValue}`);  await fetch(`post/palpatio2`);
         {
             return _context.Posts
             .Where(x => x.UrlSlug.Equals(id))
@@ -29,11 +29,10 @@ namespace WebApplication13.Controllers
         }
 
 
-        //public Post Get()
-        //{
-        //    var post = _context.Posts.FirstOrDefault();
-        //    return post;          
-        //}
+        public IEnumerable<Post> Get() //  const response = await fetch('post');   //получаем список всех постов
+        {           
+            return _context.Posts.ToArray();
+        }
 
 
         //public IActionResult Index()

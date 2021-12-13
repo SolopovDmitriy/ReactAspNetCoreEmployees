@@ -19,7 +19,7 @@ namespace WebApplication13.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Employee> Get()
+        public IEnumerable<Employee> Get() 
         {
             return _context.Employees.ToArray();
         }

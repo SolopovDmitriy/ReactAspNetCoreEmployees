@@ -5,11 +5,9 @@ import { Home } from './components/Home';
 import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
 import { OnePost } from './components/pages/Post/OnePost/OnePost';
-
-
 import { EmployeeData } from './components/EmployeeData';
-
 import './custom.css'
+import { AllPosts } from './components/pages/Post/AllPosts/AllPosts';
 
 export default class App extends Component {
   static displayName = App.name;
@@ -22,6 +20,7 @@ export default class App extends Component {
             <Route path='/fetch-data' component={FetchData} />
             <Route path='/one-post/:id' component={OnePost} />
             <Route path='/employee-data' component={EmployeeData} /> {/* employee-data   вывод всех сотрудников */}
+            <Route path='/all-posts' component={AllPosts} />
         </Layout>
     );
   }
