@@ -131,8 +131,10 @@ export class OnePost extends Component {
   }
     async populateData() {                                   //методзапроса на сервер 
         const encodedValue = encodeURIComponent(this.props.match.params.id);
-       
-        const response = await fetch(`post/${encodedValue}`);// const response = await fetch('post'); 
+
+
+        // https://localhost:44394/post/onePost?id=palpatio2 
+        const response = await fetch(`post/onePost?id=${encodedValue}`);// const response = await fetch('post');
         //асинхронный запрос - по маршруту: post - тип запроса GET
         if (response.status === 200) {
             const data = await response.json(); //ответ конвертим в json
@@ -140,7 +142,7 @@ export class OnePost extends Component {
         } else if (response.status === 204) {
             this.setState({ post: null, loading: false });
         } else {
-            // Other problem!
+                // Other problem!
         }
        
         

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WebApplication13.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebApplication13.Models.ViewModels;
 
 namespace WebApplication13.Controllers
 {
@@ -14,13 +15,29 @@ namespace WebApplication13.Controllers
     public class PostController : Controller
     {
         private ClinicDBContext _context;
+        public int PageSize = 3;
 
         public PostController(ClinicDBContext context)
         {
             _context = context;
         }
 
-        [HttpGet("{id}")]
+
+        ////api/person/byId?id=1
+        //[HttpGet("byId")]
+        //public string Get(int id)
+        //{
+        //}
+
+        ////api/person/byName?firstName=a&lastName=b
+        //[HttpGet("byName")]
+        //public string Get(string firstName, string lastName, string address)
+        //{
+        //}
+
+
+        // https://localhost:44394/post/onePost?id=palpatio2 
+        [HttpGet("onePost")]
         public Post Get(string id)   // await fetch(`post/${encodedValue}`);  await fetch(`post/palpatio2`);
         {
             return _context.Posts
@@ -28,11 +45,33 @@ namespace WebApplication13.Controllers
             .FirstOrDefault();
         }
 
+      
 
-        public IEnumerable<Post> Get() //  const response = await fetch('post');   //получаем список всех постов
-        {           
-            return _context.Posts.ToArray();
+        // https://localhost:44394/post/all?page=1 
+        [HttpGet("all")]
+        public PostViewModel Get(int page) //  const response = await fetch('post');   //получаем список всех постов
+        {
+            if (page <= 0)
+            {
+                page = 1;
+            }
+            PostViewModel model = new PostViewModel
+            {
+                Posts = _context.Posts
+                    .OrderBy(p => p.Id)
+                    .Skip((page - 1) * PageSize)
+                    .Take(PageSize).ToArray(),
+                TotalCount = _context.Posts.Count()
+            };
+
+            return model;
         }
+
+
+        //public IEnumerable<Post> Get(int page, int count) 
+        //{
+        //    return _context.Posts.Where(p => p.Id == page).ToArray();
+        //}
 
 
         //public IActionResult Index()
